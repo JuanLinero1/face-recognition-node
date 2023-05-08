@@ -20,7 +20,12 @@ const saltRounds = 10;
 app.use(express.json());
 app.use(cors());
 
-app.post("/signIn", (req, res) => {
+
+app.get('/', (req, res) => {
+  res.send("please god make it work"); 
+})
+
+  app.post("/signIn", (req, res) => {
   db.select("email", "password")
     .from("login")
     .where("email", "=", req.body.email)
