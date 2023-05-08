@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const port = http.createServer(process.env.PORT || 3000);
+const port = process.env.PORT || 3000;
 const cors = require("cors");
 const db = (knex = require("knex")({
   client: "pg",
