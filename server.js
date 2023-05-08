@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const port = 4000;
+const port = http.createServer(process.env.PORT || 3000);
 const cors = require("cors");
 const db = (knex = require("knex")({
   client: "pg",
@@ -118,6 +118,6 @@ app.put("/image", (req, res) => {
     res.json("there waas an error");
   }
 });
-app.listen(process.env.PORT || 3000, () => {
-  console.log("app is running on port " + process.env.PORT || 3000);
+app.listen(port, () => {
+  console.log("app is running on port " + port);
 });
