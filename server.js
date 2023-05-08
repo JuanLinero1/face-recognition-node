@@ -10,6 +10,7 @@ const db = (knex = require("knex")({
     user: "Juan Linero",
     password: "q#@&FT8prcc?3tSk",
     database: "face-recognition",
+    ssl: false
   },
 }));
 
