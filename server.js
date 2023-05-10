@@ -1,16 +1,16 @@
 const express = require("express");
 const app = express();
-const port = process.env.PORT || 3000;
+const port = 4000;
 const cors = require("cors");
 const db = (knex = require("knex")({
   client: "pg",
   connection: {
-    host: "127.0.0.1",
+    host: "dpg-chdpiq3hp8u3v73c3fd0-a.oregon-postgres.render.com",
     port: 5432,
-    user: "Juan Linero",
-    password: "q#@&FT8prcc?3tSk",
-    database: "face-recognition",
-    ssl: false
+    user: "face_recognition_host_user",
+    password: "Z9KjjDZYMNBSPBMAz9m9nnXzBIobtcBe",
+    database: "face_recognition_host",
+    ssl: true,
   },
 }));
 
@@ -20,12 +20,12 @@ const saltRounds = 10;
 app.use(express.json());
 app.use(cors());
 
+app.get("/", (req, res) => {
+  res.send("success"); //thanks god
+});
 
-app.get('/', (req, res) => {
-  res.send("success"); //thanks god 
-})
-
-  app.post("/signIn", (req, res) => {
+app.post("/signIn", (req, res) => {
+  console.log(req.body.userEmail)
   db.select("email", "password")
     .from("login")
     .where("email", "=", req.body.email)
@@ -52,7 +52,8 @@ app.get('/', (req, res) => {
 });
 app.post("/register", async (req, res) => {
   const { userName, userEmail, userPassword } = req.body;
-  if(!userName || !userEmail || !userPassword){
+  console.log(req.body);
+  if (!userName || !userEmail || !userPassword) {
     return res.status(403).json("incorrect credentials");
   }
 
@@ -124,6 +125,7 @@ app.put("/image", (req, res) => {
     res.json("there waas an error");
   }
 });
+
 app.listen(port, () => {
   console.log("app is running on port " + port);
 });
