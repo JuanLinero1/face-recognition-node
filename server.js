@@ -1,5 +1,5 @@
 const dotenv = require("dotenv");
-dotenv.config()
+dotenv.config();
 
 const express = require("express");
 const app = express();
@@ -28,7 +28,7 @@ app.get("/", (req, res) => {
 });
 
 app.post("/signIn", (req, res) => {
-  console.log(req.body.userEmail)
+  console.log(req.body.userEmail);
   db.select("email", "password")
     .from("login")
     .where("email", "=", req.body.email)
@@ -40,7 +40,7 @@ app.post("/signIn", (req, res) => {
           .from("users")
           .where("email", "=", req.body.email)
           .then((user) => {
-              res.json(user[0]);
+            res.json(user[0]);
           })
           .catch((err) => {
             res.status(400).json("unable to get user");
@@ -94,38 +94,23 @@ app.post("/register", async (req, res) => {
     return res.status(400).send("error");
   }
 });
-app.get("/profile::id", (req, res) => {
-  const { id } = req.params;
-  console.log(id);
-  let found = false;
-  database.users.forEach((element) => {
-    if (element.id == id) {
-      found = true;
-      serverResponse = {
-        userName: element.name,
-        userEntries: element.entries,
-      };
-      res.status(200).json({ serverResponse });
-    }
-  });
-  if (!found) {
-    res.json("not found");
-  }
-});
-app.put("/image", (req, res) => {
+
+let counter = 0
+app.put("/image", async (req, res) => {
   const { reqId } = req.body;
   let found = false;
-  console.log(reqId);
-  database.users.forEach((element) => {
+  counter++
+  const response = await db("users").select("*");
+  await response.forEach(async (element) => {
     if (element.id == reqId) {
       found = true;
-      element.entries++;
-      console.log(true, element.id + " " + reqId, element.entries);
-      return res.json(element.entries);
+      element.entries = counter;
+      const update = db("users").where({"id": element.id}).update({'entries': counter}, ['id', 'entries'])
+      return res.json(await update);
     }
   });
   if (!found) {
-    res.json("there waas an error");
+    res.json("there was an error");
   }
 });
 
