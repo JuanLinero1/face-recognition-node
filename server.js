@@ -8,11 +8,11 @@ const cors = require("cors");
 const db = (knex = require("knex")({
   client: "pg",
   connection: {
-    host: "dpg-chdpiq3hp8u3v73c3fd0-a.oregon-postgres.render.com",
+    host: process.env.DATABASE_HOST,
     port: 5432,
-    user: "face_recognition_host_user",
-    password: "Z9KjjDZYMNBSPBMAz9m9nnXzBIobtcBe",
-    database: "face_recognition_host",
+    user: process.env.DATABASE_USER,
+    password: process.env.DATABASE_PASSWORD,
+    database: process.env.DATABASE_DB,
     ssl: true,
   },
 }));
