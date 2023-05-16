@@ -28,12 +28,6 @@ app.get("/", (req, res) => {
   res.send("success"); //thanks god
 });
 
-const bring = async () => {
-  const response = await db.select('*').from('users')
-  console.log(response)
-}
-bring()
-
 app.post("/signIn", (req, res) => {
   console.log(req.body.userEmail);
   db.select("email", "password")
@@ -62,7 +56,6 @@ app.post("/signIn", (req, res) => {
 });
 app.post("/register", async (req, res) => {
   const { userName, userEmail, userPassword } = req.body;
-  console.log(req.body);
   if (!userName || !userEmail || !userPassword) {
     return res.status(403).json("incorrect credentials");
   }
