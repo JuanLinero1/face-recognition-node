@@ -28,6 +28,12 @@ app.get("/", (req, res) => {
   res.send("success"); //thanks god
 });
 
+const bring = async () => {
+  const response = await db.select('*').from('users')
+  console.log(response)
+}
+bring()
+
 app.post("/signIn", (req, res) => {
   console.log(req.body.userEmail);
   db.select("email", "password")
