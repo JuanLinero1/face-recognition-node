@@ -8,6 +8,7 @@ const cors = require("cors");
 const db = (knex = require("knex")({
   client: "pg",
   connection: {
+    name: "dpg-chdpiq3hp8u3v73c3fd0-a",
     host: "dpg-chdpiq3hp8u3v73c3fd0-a.oregon-postgres.render.com",
     port: 5432,
     user: "face_recognition_host_user",
